@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Application } from "express";
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -9,12 +9,12 @@ import MessageResponse from './interfaces/MessageResponse';
 
 require('dotenv').config();
 
-const app = express();
-
+const app : Application = express();
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"));
 
 app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
