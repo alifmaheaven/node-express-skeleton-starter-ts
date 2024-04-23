@@ -1,19 +1,44 @@
-import { Request, Response} from 'express';
+
+import { 
+  Controller,
+  Tags,
+  Route,
+  Get,
+  Path,
+  Query,
+  Queries,
+  Request,
+  Post,
+  Put,
+  Delete,
+  Header,
+  Body,
+  Response
+} from 'tsoa';
+
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //config
 import pool from "../config/database";
 // interfaces
-import UsersInterfaces from '../interfaces/UsersInterfaces';
+import { RegisterInterfaces, LoginInterfaces, ResponseAuthInterfaces } from '../interfaces/AutenticationsInterfaces';
+import { UsersInterfaces } from '../interfaces/UsersInterfaces';
 
 
-export default class Autentications {
-  public async register(req: Request, res: Response): Promise<UsersInterfaces> {
+@Route("/api/v1/auth")
+@Tags("Auth")
+export default class Autentications extends Controller{
+  @Post("/register")
+  public async register(
+    @Body() requestBody: RegisterInterfaces
+  ): Promise<UsersInterfaces> {
     const DB_NAME = "users";
     // get only data inside head of table
     const fields = await pool?.query(`SELECT * FROM ${DB_NAME} WHERE 1=0`);
     // result geting data inside head of table
-    let get_only_data_inside_head_of_table = Object.fromEntries(Object.entries(req.body).filter(([key, value]) => fields?.fields.map(({name})=> name).includes(key) && value));
+    let get_only_data_inside_head_of_table = Object.fromEntries(Object.entries(requestBody).filter(([key, value]) => fields?.fields.map(({name})=> name).includes(key) && value));
     // custom setup
     get_only_data_inside_head_of_table = {
       ...get_only_data_inside_head_of_table,
@@ -38,24 +63,42 @@ export default class Autentications {
       };
     }
   }
+  @Post("/login")
+  public async login(
+    @Body() requestBody: LoginInterfaces
+  ): Promise<ResponseAuthInterfaces> {
+    const { email, username,password } = requestBody;
+    const query = `SELECT * FROM users WHERE username = $1 or email = $2`;
+    const values = [username, email];
 
-  public async login(req: Request, res: Response): Promise<UsersInterfaces> {
-    const DB_NAME = "users";
-    const { email, password } = req.body;
-    const query = `SELECT * FROM ${DB_NAME} WHERE email = $1 AND password = $2`;
-    const values = [email, password];
     try {
-      const result = await pool?.query(query, values);
-      return result?.rows[0];
+      const result = await pool!.query(query, values);
+      if (result.rows.length > 0) {
+        const user = result.rows[0];
+        const isMatch = await bcrypt.compare(password || '', user.password || '');
+        if (isMatch) {
+          const expired_token = (parseInt(process.env.EXPIRED_TOKEN || "3600")).toString();
+          const secret_key = process.env.SCREET_KEY || "secret";
+          const token = jwt.sign({ uuid: user.uuid }, secret_key, {
+            expiresIn: expired_token,
+          });
+          return { token };
+        } else {
+          throw { password: "Password not match!" };
+        }
+      } else {
+        throw { username: "Username not found!" };
+      }
     } catch (error) {
-      console.log('Login error', error);
       throw error;
     }
   }
-
-  public async logout(req: Request, res: Response): Promise<UsersInterfaces> {
+  @Post("/logout")
+  public async logout(
+    @Body() requestBody: UsersInterfaces
+  ): Promise<UsersInterfaces> {
     const DB_NAME = "users";
-    const { uuid } = req.body;
+    const { uuid } = requestBody;
     const query = `UPDATE ${DB_NAME} SET is_login = false WHERE uuid = $1 RETURNING * `;
     try {
       const result = await pool?.query(query, [uuid]);
@@ -66,9 +109,12 @@ export default class Autentications {
     }
   }
 
-  public async profile(req: Request, res: Response): Promise<UsersInterfaces> {
+  @Post("/profile")
+  public async profile(
+    @Body() requestBody: UsersInterfaces
+  ): Promise<UsersInterfaces> {
     const DB_NAME = "users";
-    const { uuid } = req.body;
+    const { uuid } = requestBody;
     const query = `SELECT * FROM ${DB_NAME} WHERE uuid = $1`;
     try {
       const result = await pool?.query(query, [uuid]);

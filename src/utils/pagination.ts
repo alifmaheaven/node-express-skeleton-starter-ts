@@ -1,14 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-// import pool from "../config/database";
-import response from "./response.js";
-
 interface PaginationParams {
   [key: string]: string | string[] | undefined;
 }
 
 const pagination = async (
-  request: Request,
-  res: Response,
+  params: any,
   DB_NAME: string,
   pool: any
 ): Promise<{ meta: MetaData; data: any[] }> => {
@@ -16,10 +11,10 @@ const pagination = async (
   const fields = await pool.query(`SELECT * FROM ${DB_NAME} WHERE 1=0`);
 
   let get_only_data_inside_head_of_table = Object.fromEntries(
-    Object.entries(request.query).filter(([key]) =>
+    Object.entries(params).filter(([key]) =>
       fields.fields
         .map(({ name }: { name: string }) => name)
-        .includes(key.replace(/_.*/, ""))
+        .includes(key.split("_").slice(0, -1).join("_"))
     )
   ) as PaginationParams;
 
@@ -57,27 +52,19 @@ const pagination = async (
         ] as string[]) {
           values.push(item);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} = $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} = $${values.length} OR `
           );
           if (
-            get_only_data_inside_head_of_table[
+            (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ??
-            -1 ===
-              get_only_data_inside_head_of_table[
-                params_of_get_only_data_inside_head_of_table
-              ]?.length ??
-            0 - 1
+            ]?.indexOf(item) ?? -1) ===
+            (get_only_data_inside_head_of_table[
+              params_of_get_only_data_inside_head_of_table
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} = $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} = $${values.length} ) AND `
             );
           }
         }
@@ -89,88 +76,67 @@ const pagination = async (
         ] as string[]) {
           values.push(item);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} != $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} != $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} != $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} != $${values.length} ) AND `
             );
           }
         }
         break;
-      case "contains":
+      case "like":
         conditions.push(`(`);
         for (let item of get_only_data_inside_head_of_table[
           params_of_get_only_data_inside_head_of_table
         ] as string[]) {
           values.push(`%${item}%`);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} like $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} like $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} like $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} like $${values.length} ) AND `
             );
           }
         }
         break;
-      case "icontains":
+      case "ilike":
         conditions.push(`(`);
         for (let item of get_only_data_inside_head_of_table[
           params_of_get_only_data_inside_head_of_table
         ] as string[]) {
           values.push(`%${item}%`);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} ilike $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} ilike $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} ilike $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} ilike $${values.length} ) AND `
             );
           }
         }
@@ -182,26 +148,19 @@ const pagination = async (
         ] as string[]) {
           values.push(`${item}%`);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} like $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} like $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} like $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} like $${values.length} ) AND `
             );
           }
         }
@@ -213,26 +172,19 @@ const pagination = async (
         ] as string[]) {
           values.push(`${item}%`);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} ilike $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} ilike $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} ilike $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} ilike $${values.length} ) AND `
             );
           }
         }
@@ -244,27 +196,19 @@ const pagination = async (
         ] as string[]) {
           values.push(`%${item}`);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} like $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} like $${values.length} OR `
           );
           if (
-            get_only_data_inside_head_of_table[
+            (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ??
-            -1 ==
-              (get_only_data_inside_head_of_table[
-                params_of_get_only_data_inside_head_of_table
-              ]?.length ?? 0) -
-                1
+            ]?.indexOf(item) ?? -1) ===
+            (get_only_data_inside_head_of_table[
+              params_of_get_only_data_inside_head_of_table
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} like $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} like $${values.length} ) AND `
             );
           }
         }
@@ -276,27 +220,19 @@ const pagination = async (
         ] as string[]) {
           values.push(`%${item}`);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} ilike $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} ilike $${values.length} OR `
           );
           if (
-            get_only_data_inside_head_of_table[
+            (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ??
-            -1 ==
-              (get_only_data_inside_head_of_table[
-                params_of_get_only_data_inside_head_of_table
-              ]?.length ?? 0) -
-                1
+            ]?.indexOf(item) ?? -1) ===
+            (get_only_data_inside_head_of_table[
+              params_of_get_only_data_inside_head_of_table
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} ilike $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} ilike $${values.length} ) AND `
             );
           }
         }
@@ -310,26 +246,19 @@ const pagination = async (
         ] as string[]) {
           values.push(item);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} > $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} > $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} > $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} > $${values.length} ) AND `
             );
           }
         }
@@ -341,26 +270,19 @@ const pagination = async (
         ] as string[]) {
           values.push(item);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} >= $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} >= $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} >= $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} >= $${values.length} ) AND `
             );
           }
         }
@@ -372,26 +294,19 @@ const pagination = async (
         ] as string[]) {
           values.push(item);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} < $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} < $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} < $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} < $${values.length} ) AND `
             );
           }
         }
@@ -403,26 +318,19 @@ const pagination = async (
         ] as string[]) {
           values.push(item);
           conditions.push(
-            `${params_of_get_only_data_inside_head_of_table.replace(
-              /_.*/,
-              ""
-            )} <= $${values.length} OR `
+            `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} <= $${values.length} OR `
           );
           if (
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.indexOf(item) ?? -1) ==
+            ]?.indexOf(item) ?? -1) ===
             (get_only_data_inside_head_of_table[
               params_of_get_only_data_inside_head_of_table
-            ]?.length ?? 0) -
-              1
+            ]?.length ?? 0) - 1
           ) {
             conditions.pop();
             conditions.push(
-              `${params_of_get_only_data_inside_head_of_table.replace(
-                /_.*/,
-                ""
-              )} <= $${values.length} ) AND `
+              `${params_of_get_only_data_inside_head_of_table.split("_").slice(0, -1).join("_")} <= $${values.length} ) AND `
             );
           }
         }
@@ -440,16 +348,18 @@ const pagination = async (
     .trim()
     .replace(/(AND|OR|WHERE)\s*$/, "");
 
-  const { order_by_asc, order_by_desc } = request.query;
+  let { order_by_asc, order_by_desc } = params;
   if (order_by_asc || order_by_desc) {
     query += " ORDER BY ";
     if (order_by_asc) {
+      order_by_asc = Array.isArray(order_by_asc) ? order_by_asc : [order_by_asc];
       for (let item of order_by_asc as string[]) {
         if (
           !fields.fields
             .map(({ name }: { name: string }) => name)
             .includes(item as string)
         ) {
+          throw new Error(`Invalid order_by parameter: ${item}`);
           // return response.bad(
           //   "Invalid order_by parameter",
           //   { order_by: `Invalid order_by parameter: ${item}` },
@@ -461,12 +371,14 @@ const pagination = async (
       }
     }
     if (order_by_desc) {
+      order_by_desc = Array.isArray(order_by_desc) ? order_by_desc : [order_by_desc];
       for (let item of order_by_desc as string[]) {
         if (
           !fields.fields
             .map(({ name }: { name: string }) => name)
             .includes(item as string)
         ) {
+          throw new Error(`Invalid order_by parameter: ${item}`);
           // return response.bad(
           //   "Invalid order_by parameter",
           //   { order_by: `Invalid order_by parameter: ${item}` },
@@ -480,7 +392,7 @@ const pagination = async (
     query = query.slice(0, -2);
   }
 
-  const { page = 1, per_page = 10 } = request.query;
+  const { page = 1, per_page = 10 } = params;
   if (page && per_page) {
     query += ` LIMIT ${per_page} OFFSET ${
       (Number(page) - 1) * Number(per_page)

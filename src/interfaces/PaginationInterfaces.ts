@@ -1,4 +1,4 @@
-export default interface Pagination {
+export default interface PaginationInterfaces {
   meta: {
     page: number;
     per_page: number;

@@ -5,12 +5,22 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts",
+    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
+    "predev": "npm run swagger",
+    "prebuild": "npm run swagger",
     "build": "tsc",
     "start:dist": "node dist/src/index.js",
     "lint": "eslint --fix src test",
     "test": "jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "swagger": "tsoa spec"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "exec": "ts-node src/index.ts"
   },
   "keywords": [],
   "author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
@@ -30,6 +40,8 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.11.5",
+    "swagger-ui-express": "^5.0.0",
+    "tsoa": "^6.2.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -40,9 +52,11 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.12.6",
     "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.6",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",

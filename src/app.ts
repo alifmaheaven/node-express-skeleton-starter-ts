@@ -1,7 +1,8 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
+import swaggerUi from "swagger-ui-express";
 
 import * as middlewares from './middlewares';
 import api from './api';
@@ -23,6 +24,17 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 });
 
 app.use('/api/v1', api);
+
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: "/swagger.json",
+    },
+  })
+);
+
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

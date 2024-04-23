@@ -1,4 +1,4 @@
-export default interface Users {
+interface UsersInterfaces {
   uuid: string;
   name: string;
   username: string;
@@ -9,3 +9,9 @@ export default interface Users {
   updated_at: Date;
   is_active: boolean;
 }
+
+interface UsersFilterInterfaces {
+  // your properties here
+}
+
+export { UsersInterfaces, UsersFilterInterfaces }; 

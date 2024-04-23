@@ -1,0 +1,1980 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"UsersInterfaces": {
+				"properties": {
+					"uuid": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"is_active": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"uuid",
+					"name",
+					"username",
+					"email",
+					"password",
+					"image",
+					"created_at",
+					"updated_at",
+					"is_active"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterInterfaces": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"username",
+					"email",
+					"password",
+					"image"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseAuthInterfaces": {
+				"properties": {
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginInterfaces": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PaginationInterfaces": {
+				"properties": {
+					"meta": {
+						"properties": {
+							"total_pages": {
+								"type": "number",
+								"format": "double"
+							},
+							"total": {
+								"type": "number",
+								"format": "double"
+							},
+							"per_page": {
+								"type": "number",
+								"format": "double"
+							},
+							"page": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"total_pages",
+							"total",
+							"per_page",
+							"page"
+						],
+						"type": "object"
+					},
+					"data": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"meta",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RoomsFilterInterfaces": {
+				"properties": {
+					"uuid_exact": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "This uuid will be used to filter data exact match"
+					},
+					"name_exact": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_exact": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_exact": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_exact": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_exact": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_exact": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_exact": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_exact": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_except": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_except": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_except": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_except": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_except": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_except": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_except": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_except": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_except": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_like": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_like": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_like": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_like": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_like": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_like": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_like": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_like": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_like": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_ilike": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_ilike": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_ilike": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_ilike": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_ilike": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_ilike": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_ilike": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_ilike": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_ilike": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_startswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_startswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_startswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_startswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_startswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_startswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_startswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_startswith": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_startswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_istartswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_istartswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_istartswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_istartswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_istartswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_istartswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_istartswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_istartswith": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_istartswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_endswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_endswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_endswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_endswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_endswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_endswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_endswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_endswith": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_endswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"uuid_iendswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"name_iendswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"description_iendswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"media_iendswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"room_code_iendswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_iendswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_iendswith": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"is_active_iendswith": {
+						"items": {
+							"type": "boolean"
+						},
+						"type": "array"
+					},
+					"user_id_iendswith": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"created_at_gt": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_gt": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"created_at_gte": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_gte": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"created_at_lt": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_lt": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"created_at_lte": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"updated_at_lte": {
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"type": "array"
+					},
+					"order_by_asc": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"order_by_desc": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RoomsInterfaces": {
+				"properties": {
+					"uuid": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"media": {
+						"type": "string"
+					},
+					"room_code": {
+						"type": "number",
+						"format": "double"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"is_active": {
+						"type": "boolean"
+					},
+					"user_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"uuid",
+					"name",
+					"description",
+					"media",
+					"room_code",
+					"created_at",
+					"updated_at",
+					"is_active",
+					"user_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RoomsCreateInterfaces": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"media": {
+						"type": "string"
+					},
+					"room_code": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"description",
+					"media",
+					"room_code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RoomsUpdateInterfaces": {
+				"properties": {
+					"uuid": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"media": {
+						"type": "string"
+					},
+					"room_code": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"uuid",
+					"name",
+					"description",
+					"media",
+					"room_code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RoomsDeleteInterfaces": {
+				"properties": {
+					"uuid": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"uuid"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "express-api-starter-ts",
+		"version": "1.2.0",
+		"description": " A basic starter for an express.js API with Typescript",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "CJ R. ",
+			"email": "cj@null.computer",
+			"url": "https://w3cj.now.sh"
+		}
+	},
+	"paths": {
+		"/api/v1/auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UsersInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterInterfaces"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseAuthInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginInterfaces"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/auth/logout": {
+			"post": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UsersInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UsersInterfaces"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/auth/profile": {
+			"post": {
+				"operationId": "Profile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UsersInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UsersInterfaces"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/crud": {
+			"get": {
+				"operationId": "GetData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaginationInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "This uuid will be used to filter data exact match",
+						"in": "query",
+						"name": "uuid_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_exact",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_except",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_like",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_ilike",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_startswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_istartswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_endswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "name_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "description_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "media_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "room_code_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "is_active_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "boolean"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "user_id_iendswith",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_gt",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_gt",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_gte",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_gte",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_lt",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_lt",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "created_at_lte",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "updated_at_lte",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "order_by_asc",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "order_by_desc",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomsInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoomsCreateInterfaces"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "UpdateData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomsInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoomsUpdateInterfaces"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomsInterfaces"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoomsDeleteInterfaces"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
