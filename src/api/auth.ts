@@ -1,5 +1,5 @@
 import express from 'express';
-import { Request, Response} from 'express';
+import { Request, Response } from 'express';
 
 // controllers
 import Autentications from '../controllers/authControllers';

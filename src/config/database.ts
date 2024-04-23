@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
-import { Pool, types, PoolClient } from 'pg';
+import { Pool, types } from 'pg';
 
 config();
 
-types.setTypeParser(1114, function(stringValue: string) {
+types.setTypeParser(1114, function (stringValue: string) {
   return stringValue;
 });
 
@@ -22,9 +22,9 @@ if (typeConnection === 'url') {
     connectionString,
     ssl: getEnv('DB_SSL') === 'true',
     connectionTimeoutMillis: 15000,
-    idleTimeoutMillis: 30000
+    idleTimeoutMillis: 30000,
   });
-} else if (typeConnection === 'connector'){
+} else if (typeConnection === 'connector') {
   pool = new Pool({
     user: getEnv('DB_USER'),
     host: getEnv('DB_HOST'),
@@ -33,11 +33,11 @@ if (typeConnection === 'url') {
     port: parseInt(getEnv('DB_PORT')),
     ssl: getEnv('DB_SSL') === 'true',
     connectionTimeoutMillis: 15000,
-    idleTimeoutMillis: 30000
+    idleTimeoutMillis: 30000,
   });
 }
 
-pool?.connect(function(err: Error | undefined, client: PoolClient | undefined) {
+pool?.connect(function (err: Error | undefined) {
   if (err) throw err;
 });
 

@@ -1,10 +1,10 @@
 require('dotenv').config();
 
-import express, { Application, Request, Response } from "express";
+import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-import swaggerUi from "swagger-ui-express";
+import swaggerUi from 'swagger-ui-express';
 
 import * as middlewares from './middlewares/global';
 import api from './api';
@@ -16,7 +16,7 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
@@ -27,13 +27,13 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 app.use('/api/v1', api);
 
 app.use(
-  "/docs",
+  '/docs',
   swaggerUi.serve,
   swaggerUi.setup(undefined, {
     swaggerOptions: {
-      url: "/swagger.json",
+      url: '/swagger.json',
     },
-  })
+  }),
 );
 
 

@@ -1,11 +1,11 @@
 import { Response } from 'express';
 
 function created(
-  message: string = "successfully created data!",
+  message: string = 'successfully created data!',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(201).json({
     code: 201,
@@ -16,11 +16,11 @@ function created(
 }
 
 function ok(
-  message: string = "Successfully retrive data!",
+  message: string = 'Successfully retrive data!',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(200).json({
     code: 200,
@@ -32,11 +32,11 @@ function ok(
 }
 
 function bad(
-  message: string = "Failed retrive data!",
+  message: string = 'Failed retrive data!',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(403).json({
     code: 403,
@@ -47,11 +47,11 @@ function bad(
 }
 
 function notfound(
-  message: string = "Data not found!",
+  message: string = 'Data not found!',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(404).json({
     code: 404,
@@ -62,11 +62,11 @@ function notfound(
 }
 
 function unauthorized(
-  message: string = "Unauthorized",
+  message: string = 'Unauthorized',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(401).json({
     code: 401,
@@ -77,11 +77,11 @@ function unauthorized(
 }
 
 function forbidden(
-  message: string = "Forbidden",
+  message: string = 'Forbidden',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(403).json({
     code: 403,
@@ -92,11 +92,11 @@ function forbidden(
 }
 
 function error(
-  message: string = "Internal server error",
+  message: string = 'Internal server error',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(500).json({
     code: 500,
@@ -107,11 +107,11 @@ function error(
 }
 
 function nocontent(
-  message: string = "No content",
+  message: string = 'No content',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(204).json({
     code: 204,
@@ -122,11 +122,11 @@ function nocontent(
 }
 
 function badrequest(
-  message: string = "Bad request",
+  message: string = 'Bad request',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(400).json({
     code: 400,
@@ -137,11 +137,11 @@ function badrequest(
 }
 
 function conflict(
-  message: string = "Conflict",
+  message: string = 'Conflict',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(409).json({
     code: 409,
@@ -152,11 +152,11 @@ function conflict(
 }
 
 function unprocessable(
-  message: string = "Unprocessable Entity",
+  message: string = 'Unprocessable Entity',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(422).json({
     code: 422,
@@ -167,11 +167,11 @@ function unprocessable(
 }
 
 function gone(
-  message: string = "Gone",
+  message: string = 'Gone',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(410).json({
     code: 410,
@@ -182,11 +182,11 @@ function gone(
 }
 
 function unsupported(
-  message: string = "Unsupported Media Type",
+  message: string = 'Unsupported Media Type',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(415).json({
     code: 415,
@@ -197,11 +197,11 @@ function unsupported(
 }
 
 function notimplemented(
-  message: string = "Not Implemented",
+  message: string = 'Not Implemented',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(501).json({
     code: 501,
@@ -212,11 +212,11 @@ function notimplemented(
 }
 
 function serviceunavailable(
-  message: string = "Service Unavailable",
+  message: string = 'Service Unavailable',
   values: any,
-  res: Response
+  res: Response,
 ) {
-  const data = values;
+  
   res.statusMessage = message;
   res.status(503).json({
     code: 503,

@@ -128,5 +128,5 @@ export {
   RoomsUpdateInterfaces,
   RoomsCreateInterfaces,
   RoomsDeleteInterfaces,
-  RoomsFilterInterfaces 
-}
+  RoomsFilterInterfaces, 
+};

@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 config();
 
 import { 
@@ -18,37 +18,37 @@ import {
   Response,
   Security,
 } from 'tsoa';
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 // utils
 import pagination from '../utils/pagination';
 //config
-import pool from "../config/database";
+import pool from '../config/database';
 // import interfaces
 import { 
   RoomsInterfaces, 
   RoomsUpdateInterfaces,
   RoomsCreateInterfaces,
   RoomsDeleteInterfaces,
-  RoomsFilterInterfaces  
+  RoomsFilterInterfaces,  
 } from '../interfaces/RoomsInterfaces';
 
 import PaginationInterfaces from '../interfaces/PaginationInterfaces';
 
-@Route("/api/v1/crud")
-@Tags("User")
-export default class Crud extends Controller{
+@Route('/api/v1/crud')
+@Tags('User')
+export default class Crud extends Controller {
   /**
    * Retrieves the details of an existing user.
    * Supply the unique user ID from either and receive corresponding user details.
    */
-  @Security("bearer")
-  @Get("/")
+  @Security('bearer')
+  @Get('/')
   public async getData(
     @Request() req: any,
-    @Queries() query: RoomsFilterInterfaces,
+      @Queries() query: RoomsFilterInterfaces,
   ): Promise<PaginationInterfaces> {
-    const DB_NAME = "rooms";
+    const DB_NAME = 'rooms';
     try {
       const result = await pagination(query, DB_NAME, pool);
       return result; // Add this line
@@ -58,17 +58,17 @@ export default class Crud extends Controller{
     }
   }
 
-  @Security("bearer")
-  @Post("/")
+  @Security('bearer')
+  @Post('/')
   public async createData(
     @Request() req: any,
-    @Body() requestBody: RoomsCreateInterfaces,
+      @Body() requestBody: RoomsCreateInterfaces,
   ): Promise<RoomsInterfaces> {
-    const DB_NAME = "rooms";
+    const DB_NAME = 'rooms';
     // get only data inside head of table
     const fields = await pool?.query(`SELECT * FROM ${DB_NAME} WHERE 1=0`);
     // result geting data inside head of table
-    let get_only_data_inside_head_of_table = Object.fromEntries(Object.entries(requestBody).filter(([key, value]) => fields?.fields.map(({name})=> name).includes(key) && value));
+    let get_only_data_inside_head_of_table = Object.fromEntries(Object.entries(requestBody).filter(([key, value]) => fields?.fields.map(({ name })=> name).includes(key) && value));
     // custom setup
     get_only_data_inside_head_of_table = {
       ...get_only_data_inside_head_of_table,
@@ -77,7 +77,7 @@ export default class Crud extends Controller{
       uuid: uuidv4(),
       created_at: new Date(),
       updated_at: new Date(),
-    }
+    };
     // make me query insert as get_only_data_inside_head_of_table
     const keys = Object.keys(get_only_data_inside_head_of_table);
     const values = Object.values(get_only_data_inside_head_of_table);
@@ -91,28 +91,28 @@ export default class Crud extends Controller{
       console.log('Create data error', error);
       const err = error as { column: string, message: string };
       throw {
-        [err.column]: err.message
+        [err.column]: err.message,
       }; // Add this line
     }
   }
 
-  @Security("bearer")
-  @Put("/")
+  @Security('bearer')
+  @Put('/')
   public async updateData(
     @Request() req: any,
-    @Body() requestBody: RoomsUpdateInterfaces,
+      @Body() requestBody: RoomsUpdateInterfaces,
   ): Promise<RoomsInterfaces> {
-    const DB_NAME = "rooms";
+    const DB_NAME = 'rooms';
     const { uuid } = requestBody;
     // get only data inside head of table
     const fields = await pool!.query(`SELECT * FROM ${DB_NAME} WHERE 1=0`);
     // result geting data inside head of table
-    let get_only_data_inside_head_of_table = Object.fromEntries(Object.entries(requestBody).filter(([key, value]) => fields?.fields.map(({name})=> name).includes(key) && value));
+    let get_only_data_inside_head_of_table = Object.fromEntries(Object.entries(requestBody).filter(([key, value]) => fields?.fields.map(({ name })=> name).includes(key) && value));
     // custom setup
     get_only_data_inside_head_of_table = {
       ...get_only_data_inside_head_of_table,
       updated_at: new Date(),
-    }
+    };
     // make me query insert as get_only_data_inside_head_of_table
     const keys = Object.keys(get_only_data_inside_head_of_table);
     const values = Object.values(get_only_data_inside_head_of_table);
@@ -125,18 +125,18 @@ export default class Crud extends Controller{
       console.log('Update data error', error);
       const err = error as { column: string, message: string };
       throw {
-        [err.column]: err.message
+        [err.column]: err.message,
       }; // Add this line
     }
   }
 
-  @Security("bearer")
-  @Delete("/")
+  @Security('bearer')
+  @Delete('/')
   public async deleteData(
     @Request() req: any,
-    @Body() requestBody: RoomsDeleteInterfaces,
+      @Body() requestBody: RoomsDeleteInterfaces,
   ): Promise<RoomsInterfaces> {
-    const DB_NAME = "rooms";
+    const DB_NAME = 'rooms';
     const { uuid } = requestBody;
     const query = `DELETE FROM ${DB_NAME} WHERE uuid = $1 RETURNING *`;
     try {
