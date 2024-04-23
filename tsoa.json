@@ -3,6 +3,21 @@
   "noImplicitAdditionalProperties": "throw-on-extras",
   "spec": {
     "outputDirectory": "public",
-    "specVersion": 3
+    "specVersion": 3,
+    "securityDefinitions": {
+      "api_key": {
+          "type": "apiKey",
+          "name": "access_token",
+          "in": "query"
+      },
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "routes": {
+    "authenticationModule": "./src/middlewares/authentication.ts"
   }
 }

@@ -16,4 +16,15 @@ interface ResponseAuthInterfaces {
   token: string;
 }
 
-export { RegisterInterfaces, LoginInterfaces, ResponseAuthInterfaces }; 
+interface ProfileAuthInterfaces {
+  uuid: string;
+  name: string;
+  username: string;
+  email: string;
+  image: string;
+  created_at: Date;
+  updated_at: Date;
+  is_active: boolean;
+}
+
+export { RegisterInterfaces, LoginInterfaces, ResponseAuthInterfaces, ProfileAuthInterfaces }; 

@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 import { 
   Controller,
@@ -13,6 +14,7 @@ import {
   Delete,
   Header,
   Body,
+  Security,
   Response
 } from 'tsoa';
 
@@ -23,7 +25,7 @@ import jwt from "jsonwebtoken";
 //config
 import pool from "../config/database";
 // interfaces
-import { RegisterInterfaces, LoginInterfaces, ResponseAuthInterfaces } from '../interfaces/AutenticationsInterfaces';
+import { RegisterInterfaces, LoginInterfaces, ResponseAuthInterfaces, ProfileAuthInterfaces } from '../interfaces/AutenticationsInterfaces';
 import { UsersInterfaces } from '../interfaces/UsersInterfaces';
 
 
@@ -32,6 +34,7 @@ import { UsersInterfaces } from '../interfaces/UsersInterfaces';
 export default class Autentications extends Controller{
   @Post("/register")
   public async register(
+    @Request() req: any,
     @Body() requestBody: RegisterInterfaces
   ): Promise<UsersInterfaces> {
     const DB_NAME = "users";
@@ -65,6 +68,7 @@ export default class Autentications extends Controller{
   }
   @Post("/login")
   public async login(
+    @Request() req: any,
     @Body() requestBody: LoginInterfaces
   ): Promise<ResponseAuthInterfaces> {
     const { email, username,password } = requestBody;
@@ -80,7 +84,7 @@ export default class Autentications extends Controller{
           const expired_token = (parseInt(process.env.EXPIRED_TOKEN || "3600")).toString();
           const secret_key = process.env.SCREET_KEY || "secret";
           const token = jwt.sign({ uuid: user.uuid }, secret_key, {
-            expiresIn: expired_token,
+            expiresIn: parseInt(expired_token),
           });
           return { token };
         } else {
@@ -95,6 +99,7 @@ export default class Autentications extends Controller{
   }
   @Post("/logout")
   public async logout(
+    @Request() req: any,
     @Body() requestBody: UsersInterfaces
   ): Promise<UsersInterfaces> {
     const DB_NAME = "users";
@@ -109,12 +114,13 @@ export default class Autentications extends Controller{
     }
   }
 
-  @Post("/profile")
+  @Security("bearer")
+  @Get("/profile")
   public async profile(
-    @Body() requestBody: UsersInterfaces
-  ): Promise<UsersInterfaces> {
+    @Request() req: any
+  ): Promise<ProfileAuthInterfaces> {
     const DB_NAME = "users";
-    const { uuid } = requestBody;
+    const { uuid } = req.auth_data;
     const query = `SELECT * FROM ${DB_NAME} WHERE uuid = $1`;
     try {
       const result = await pool?.query(query, [uuid]);

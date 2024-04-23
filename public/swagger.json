@@ -108,6 +108,48 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"ProfileAuthInterfaces": {
+				"properties": {
+					"uuid": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"is_active": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"uuid",
+					"name",
+					"username",
+					"email",
+					"image",
+					"created_at",
+					"updated_at",
+					"is_active"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"PaginationInterfaces": {
 				"properties": {
 					"meta": {
@@ -786,7 +828,18 @@
 				"additionalProperties": false
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"api_key": {
+				"type": "apiKey",
+				"name": "access_token",
+				"in": "query"
+			},
+			"bearer": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
 	},
 	"info": {
 		"title": "express-api-starter-ts",
@@ -899,7 +952,7 @@
 			}
 		},
 		"/api/v1/auth/profile": {
-			"post": {
+			"get": {
 				"operationId": "Profile",
 				"responses": {
 					"200": {
@@ -907,7 +960,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UsersInterfaces"
+									"$ref": "#/components/schemas/ProfileAuthInterfaces"
 								}
 							}
 						}
@@ -916,18 +969,12 @@
 				"tags": [
 					"Auth"
 				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UsersInterfaces"
-							}
-						}
+				"security": [
+					{
+						"bearer": []
 					}
-				}
+				],
+				"parameters": []
 			}
 		},
 		"/api/v1/crud": {
@@ -949,7 +996,11 @@
 				"tags": [
 					"User"
 				],
-				"security": [],
+				"security": [
+					{
+						"bearer": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "This uuid will be used to filter data exact match",
@@ -1897,7 +1948,11 @@
 				"tags": [
 					"User"
 				],
-				"security": [],
+				"security": [
+					{
+						"bearer": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1927,7 +1982,11 @@
 				"tags": [
 					"User"
 				],
-				"security": [],
+				"security": [
+					{
+						"bearer": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1957,7 +2016,11 @@
 				"tags": [
 					"User"
 				],
-				"security": [],
+				"security": [
+					{
+						"bearer": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,

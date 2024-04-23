@@ -15,7 +15,8 @@ import {
   Delete,
   Header,
   Body,
-  Response
+  Response,
+  Security,
 } from 'tsoa';
 import { v4 as uuidv4 } from "uuid";
 
@@ -41,8 +42,10 @@ export default class Crud extends Controller{
    * Retrieves the details of an existing user.
    * Supply the unique user ID from either and receive corresponding user details.
    */
+  @Security("bearer")
   @Get("/")
   public async getData(
+    @Request() req: any,
     @Queries() query: RoomsFilterInterfaces,
   ): Promise<PaginationInterfaces> {
     const DB_NAME = "rooms";
@@ -55,8 +58,10 @@ export default class Crud extends Controller{
     }
   }
 
+  @Security("bearer")
   @Post("/")
   public async createData(
+    @Request() req: any,
     @Body() requestBody: RoomsCreateInterfaces,
   ): Promise<RoomsInterfaces> {
     const DB_NAME = "rooms";
@@ -67,7 +72,7 @@ export default class Crud extends Controller{
     // custom setup
     get_only_data_inside_head_of_table = {
       ...get_only_data_inside_head_of_table,
-      // user_id: req.auth_data.uuid,
+      user_id: req.auth_data.uuid,
       room_code: Math.floor(100000 + Math.random() * 900000),
       uuid: uuidv4(),
       created_at: new Date(),
@@ -90,8 +95,11 @@ export default class Crud extends Controller{
       }; // Add this line
     }
   }
+
+  @Security("bearer")
   @Put("/")
   public async updateData(
+    @Request() req: any,
     @Body() requestBody: RoomsUpdateInterfaces,
   ): Promise<RoomsInterfaces> {
     const DB_NAME = "rooms";
@@ -122,8 +130,10 @@ export default class Crud extends Controller{
     }
   }
 
+  @Security("bearer")
   @Delete("/")
   public async deleteData(
+    @Request() req: any,
     @Body() requestBody: RoomsDeleteInterfaces,
   ): Promise<RoomsInterfaces> {
     const DB_NAME = "rooms";

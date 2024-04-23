@@ -1,14 +1,15 @@
+require('dotenv').config();
+
 import express, { Application, Request, Response } from "express";
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import swaggerUi from "swagger-ui-express";
 
-import * as middlewares from './middlewares';
+import * as middlewares from './middlewares/global';
 import api from './api';
 import MessageResponse from './interfaces/MessageResponse';
 
-require('dotenv').config();
 
 const app : Application = express();
 app.use(morgan('dev'));
