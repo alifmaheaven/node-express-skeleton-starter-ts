@@ -77,6 +77,7 @@ export default class Crud extends Controller {
       uuid: uuidv4(),
       created_at: new Date(),
       updated_at: new Date(),
+      is_active: true,
     };
     // make me query insert as get_only_data_inside_head_of_table
     const keys = Object.keys(get_only_data_inside_head_of_table);
