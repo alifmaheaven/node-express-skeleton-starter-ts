@@ -8,7 +8,19 @@ const server = app.listen(port, () => {
   /* eslint-enable no-console */
 });
 
-websockets(server);
+
+// this how to consume websockets
+// ws://localhost:5000/websockets
+// {
+//   "send_to": {
+//    "rooms": "5050",
+//   },
+//   "data": {
+//    "message": "test"
+//   }
+// }
+
+websockets(server, ['/websockets']);
 
 
 
