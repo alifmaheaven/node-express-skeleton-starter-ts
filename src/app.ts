@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 import express, { Application, Request, Response } from 'express';
+import path from 'path'
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -25,6 +26,7 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 });
 
 app.use('/api/v1', api);
+app.use('/public', express.static('public'));
 
 app.use(
   '/docs',
@@ -37,7 +39,7 @@ app.use(
 );
 
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+// app.use(middlewares.notFound);
+// app.use(middlewares.errorHandler);
 
 export default app;

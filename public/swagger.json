@@ -2033,6 +2033,55 @@
 					}
 				}
 			}
+		},
+		"/api/v1/crud/upload": {
+			"post": {
+				"operationId": "UploadFile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"files": {
+										"items": {
+											"type": "string",
+											"format": "binary"
+										},
+										"type": "array"
+									},
+									"body": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"files"
+								]
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"servers": [

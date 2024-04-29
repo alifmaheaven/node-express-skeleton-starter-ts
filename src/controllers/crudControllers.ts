@@ -1,21 +1,21 @@
 import { config } from 'dotenv';
 config();
 
+import * as Express from 'express';
+
 import { 
   Controller,
   Tags,
   Route,
   Get,
-  Path,
-  Query,
   Queries,
   Request,
   Post,
   Put,
   Delete,
-  Header,
   Body,
-  Response,
+  UploadedFiles,
+  FormField,
   Security,
 } from 'tsoa';
 import { v4 as uuidv4 } from 'uuid';
@@ -148,4 +148,18 @@ export default class Crud extends Controller {
       throw error; // Add this line
     }
   }
+
+  @Security('bearer')
+  @Post('/upload')
+  public async uploadFile(
+    @UploadedFiles() files: any,
+    @FormField() body?: { destination: string }, // Update the type of the destination parameter
+  ): Promise<any> {
+    console.log('base url', files);
+    
+    return { 
+      destination: body?.destination, 
+      links: files.files.map((item: { path: any; }) => files.protocol + "://" + files.host + '/'+item.path)  
+    };
+  };
 }

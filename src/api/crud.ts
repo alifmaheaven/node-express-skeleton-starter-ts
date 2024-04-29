@@ -6,6 +6,9 @@ import Crud from '../controllers/crudControllers';
 // middlewares
 import { JWTAuthentication } from '../middlewares/authentication';
 
+// config
+import upload from '../config/upload';
+
 // utils
 import response from '../utils/response';
 
@@ -44,6 +47,15 @@ router.delete('/', JWTAuthentication, async (req: Request, res: Response) => {
     response.ok('Delete data success', result, res);
   } catch (error) {
     response.error('Delete data error', error, res);
+  }
+});
+
+router.post('/upload', JWTAuthentication, upload.array('files'), async (req: Request, res: Response) => {
+  try {
+    const result = await new Crud().uploadFile(req, req.body);
+    response.ok('Upload file success', result, res);
+  } catch (error) {
+    response.error('Upload file error', error, res);
   }
 });
 
