@@ -59,6 +59,15 @@ router.post('/upload', JWTAuthentication, upload.array('files'), async (req: Req
   }
 });
 
+router.delete('/upload', JWTAuthentication, async (req: Request, res: Response) => {
+  try {
+    const result = await new Crud().deleteFile(req, req.body);
+    response.ok('Delete file success', result, res);
+  } catch (error) {
+    response.error('Delete file error', error, res);
+  }
+});
+
 
 
 export default router;

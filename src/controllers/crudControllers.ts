@@ -22,7 +22,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 // utils
 import pagination from '../utils/pagination';
-import { moveToPermanentFiles } from '../utils/filesManagement';
+import { 
+  moveToPermanentFiles, 
+  deleteFiles 
+} from '../utils/filesManagement';
 //config
 import pool from '../config/database';
 // import interfaces
@@ -31,7 +34,8 @@ import {
   RoomsUpdateInterfaces,
   RoomsCreateInterfaces,
   RoomsDeleteInterfaces,
-  RoomsFilterInterfaces,  
+  RoomsFilterInterfaces,
+  RoomsUploadDeleteInterfaces,
 } from '../interfaces/RoomsInterfaces';
 
 import PaginationInterfaces from '../interfaces/PaginationInterfaces';
@@ -159,6 +163,20 @@ export default class Crud extends Controller {
   ): Promise<any> {
     return { 
       links: files.files.map((item: { path: any; }) => ({ path: '/'+item.path, link: files.protocol + "://" + files.host + '/'+item.path }))  
+    };
+  };
+
+  @Security('bearer')
+  @Delete('/upload')
+  public async deleteFile(
+    @Request() req: any,
+    @Body() requestBody: RoomsUploadDeleteInterfaces,
+  ): Promise<any> {
+    requestBody.links.forEach((link) => {
+      deleteFiles(link);
+    });
+    return { 
+      links: requestBody.links
     };
   };
 }

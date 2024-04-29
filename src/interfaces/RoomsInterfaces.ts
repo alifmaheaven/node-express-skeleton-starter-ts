@@ -29,6 +29,10 @@ interface RoomsDeleteInterfaces {
   uuid: string;
 }
 
+interface RoomsUploadDeleteInterfaces {
+  links: string[];
+}
+
 interface RoomsFilterInterfaces {
   /**
    * This uuid will be used to filter data exact match
@@ -129,4 +133,5 @@ export {
   RoomsCreateInterfaces,
   RoomsDeleteInterfaces,
   RoomsFilterInterfaces, 
+  RoomsUploadDeleteInterfaces,
 };

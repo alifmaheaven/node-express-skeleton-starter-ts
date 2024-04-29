@@ -28,7 +28,7 @@ export const moveToPermanentFiles = async (links: string, newlinks: string) => {
 };
 
 export const deleteFiles = (links: string) => {
-  fs.unlink(links, (err) => {
+  fs.unlink(`./${links}`, (err) => {
     if (err) {
       console.error(err);
     }

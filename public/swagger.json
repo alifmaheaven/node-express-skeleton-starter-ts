@@ -826,6 +826,21 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"RoomsUploadDeleteInterfaces": {
+				"properties": {
+					"links": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"links"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -2074,6 +2089,38 @@
 								"required": [
 									"files"
 								]
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteFile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoomsUploadDeleteInterfaces"
 							}
 						}
 					}
