@@ -159,7 +159,7 @@ export default class Crud extends Controller {
     
     return { 
       destination: body?.destination, 
-      links: files.files.map((item: { path: any; }) => files.protocol + "://" + files.host + '/'+item.path)  
+      links: files.files.map((item: { path: any; }) => ({ path: '/'+item.path, link: files.protocol + "://" + files.host + '/'+item.path }))  
     };
   };
 }
