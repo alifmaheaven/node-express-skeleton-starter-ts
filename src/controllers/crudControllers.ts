@@ -22,6 +22,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // utils
 import pagination from '../utils/pagination';
+import { moveToPermanentFiles } from '../utils/filesManagement';
 //config
 import pool from '../config/database';
 // import interfaces
@@ -72,6 +73,7 @@ export default class Crud extends Controller {
     // custom setup
     get_only_data_inside_head_of_table = {
       ...get_only_data_inside_head_of_table,
+      ...(get_only_data_inside_head_of_table?.media && { media: await moveToPermanentFiles(get_only_data_inside_head_of_table?.media, 'rooms') }),
       user_id: req.auth_data.uuid,
       room_code: Math.floor(100000 + Math.random() * 900000),
       uuid: uuidv4(),
@@ -112,6 +114,7 @@ export default class Crud extends Controller {
     // custom setup
     get_only_data_inside_head_of_table = {
       ...get_only_data_inside_head_of_table,
+      ...(get_only_data_inside_head_of_table?.media && { media: await moveToPermanentFiles(get_only_data_inside_head_of_table?.media, 'rooms') }),
       updated_at: new Date(),
     };
     // make me query insert as get_only_data_inside_head_of_table
@@ -153,12 +156,8 @@ export default class Crud extends Controller {
   @Post('/upload')
   public async uploadFile(
     @UploadedFiles() files: any,
-    @FormField() body?: { destination: string }, // Update the type of the destination parameter
   ): Promise<any> {
-    console.log('base url', files);
-    
     return { 
-      destination: body?.destination, 
       links: files.files.map((item: { path: any; }) => ({ path: '/'+item.path, link: files.protocol + "://" + files.host + '/'+item.path }))  
     };
   };

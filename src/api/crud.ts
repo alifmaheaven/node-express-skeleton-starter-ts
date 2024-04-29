@@ -52,7 +52,7 @@ router.delete('/', JWTAuthentication, async (req: Request, res: Response) => {
 
 router.post('/upload', JWTAuthentication, upload.array('files'), async (req: Request, res: Response) => {
   try {
-    const result = await new Crud().uploadFile(req, req.body);
+    const result = await new Crud().uploadFile(req);
     response.ok('Upload file success', result, res);
   } catch (error) {
     response.error('Upload file error', error, res);

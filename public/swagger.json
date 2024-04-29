@@ -2069,9 +2069,6 @@
 											"format": "binary"
 										},
 										"type": "array"
-									},
-									"body": {
-										"type": "string"
 									}
 								},
 								"required": [

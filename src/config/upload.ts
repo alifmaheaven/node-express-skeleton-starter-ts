@@ -1,12 +1,16 @@
+import fs from 'fs';
 import multer from 'multer';
 
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    cb(null, './public/uploads/'+(_req?.body?.destination || ''));
+    if (!fs.existsSync('./public/uploads/tmp/')){
+      fs.mkdirSync('./public/uploads/tmp/');
+    }
+    cb(null, './public/uploads/tmp/');
   },
   filename: (_req, _file, cb) => {
-    cb(null, Date.now() + '-' + _file?.originalname);
+    cb(null, Date.now() + '-tmp-' + _file?.originalname);
   }
 });
 
