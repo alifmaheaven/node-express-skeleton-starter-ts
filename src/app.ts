@@ -17,7 +17,6 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
 
 app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
@@ -39,7 +38,7 @@ app.use(
 );
 
 
-// app.use(middlewares.notFound);
-// app.use(middlewares.errorHandler);
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 export default app;
