@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path  from 'path';
 
-export const moveToPermanentFiles = async (links: string, newlinks: string) => {
+export const moveToPermanentFiles = async (links: string, newlinks: string = 'files') => {
 
   const old_links = (`./${links}`);
   const new_links = (`./${path.dirname(links)}/${newlinks}/${path.basename(links).replace('-tmp-', '-')}`).replace('/tmp/', '/')
@@ -17,13 +17,6 @@ export const moveToPermanentFiles = async (links: string, newlinks: string) => {
     }
   });
 
-  // remove directory tmp after 00:00 pm to 01:00 am
-  // const date = new Date();
-  // const hour = date.getHours();
-  // if (hour >= 0 && hour <= 1) {
-  //   fs.rmSync(path.dirname(old_links), { recursive: true, force: true });
-  // }
-
   return new_links.replace('./', '');
 };
 
@@ -35,17 +28,19 @@ export const deleteFiles = (links: string) => {
   });
 }
 
-export const deleteTempFiles = (links: string) => {
-  fs.readdir(links, (err, files) => {
+export const deleteFolder = (links: string) => {
+  fs.rmdir(`./${path.dirname(links)}`, { recursive: true }, (err) => {
     if (err) {
       console.error(err);
     }
-    for (const file of files) {
-      fs.unlink(path + '/' + file, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
+  });
+}
+
+export const createFolder = (links: string) => {
+  fs.mkdir(`./${links}`, (err) => {
+    if (err) {
+      console.error(err);
     }
   });
 }
+
