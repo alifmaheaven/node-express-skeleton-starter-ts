@@ -26,7 +26,7 @@ export const deleteFiles = (links: string) => {
       console.error(err);
     }
   });
-}
+};
 
 export const deleteFolder = (links: string) => {
   fs.rmdir(`./${path.dirname(links)}`, { recursive: true }, (err) => {
@@ -34,7 +34,7 @@ export const deleteFolder = (links: string) => {
       console.error(err);
     }
   });
-}
+};
 
 export const createFolder = (links: string) => {
   fs.mkdir(`./${links}`, (err) => {
@@ -42,5 +42,5 @@ export const createFolder = (links: string) => {
       console.error(err);
     }
   });
-}
+};
 

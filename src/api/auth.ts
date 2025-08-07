@@ -23,6 +23,7 @@ router.post('/login', async (req: Request, res:Response) => {
 
 router.post('/register', async (req: Request, res:Response) => {
   try {
+    
     const result = await new Autentications().register(req, req.body);
     response.ok('Register success', result, res);
   } catch (error) {

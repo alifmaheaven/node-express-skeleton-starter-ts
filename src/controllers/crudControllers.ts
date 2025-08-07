@@ -24,7 +24,7 @@ import { v4 as uuidv4 } from 'uuid';
 import pagination from '../utils/pagination';
 import { 
   moveToPermanentFiles, 
-  deleteFiles 
+  deleteFiles,
 } from '../utils/filesManagement';
 //config
 import pool from '../config/database';
@@ -79,11 +79,7 @@ export default class Crud extends Controller {
       ...get_only_data_inside_head_of_table,
       ...(get_only_data_inside_head_of_table?.media && { media: await moveToPermanentFiles(get_only_data_inside_head_of_table?.media, 'rooms') }),
       user_id: req.auth_data.uuid,
-      room_code: Math.floor(100000 + Math.random() * 900000),
       uuid: uuidv4(),
-      created_at: new Date(),
-      updated_at: new Date(),
-      is_active: true,
     };
     // make me query insert as get_only_data_inside_head_of_table
     const keys = Object.keys(get_only_data_inside_head_of_table);
@@ -162,21 +158,21 @@ export default class Crud extends Controller {
     @UploadedFiles() files: any,
   ): Promise<any> {
     return { 
-      links: files.files.map((item: { path: any; }) => ({ path: '/'+item.path, link: files.protocol + "://" + files.host + '/'+item.path }))  
+      links: files.files.map((item: { path: any; }) => ({ path: '/' + item.path, link: files.protocol + '://' + files.host + '/' + item.path })),
     };
-  };
+  }
 
   @Security('bearer')
   @Delete('/upload')
   public async deleteFile(
     @Request() req: any,
-    @Body() requestBody: RoomsUploadDeleteInterfaces,
+      @Body() requestBody: RoomsUploadDeleteInterfaces,
   ): Promise<any> {
     requestBody.links.forEach((link) => {
       deleteFiles(link);
     });
     return { 
-      links: requestBody.links
+      links: requestBody.links,
     };
-  };
+  }
 }
