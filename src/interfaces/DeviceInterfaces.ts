@@ -1,18 +1,17 @@
-interface UsersInterfaces {
+interface DeviceInterfaces {
   id: string;
   company_id: string;
-  role_id: string;
   contract_id: string;
+  service_id: string;
   location_id: string;
-  site_id: string; // Corrected from sites_id
+  site_id: string;
   code: string;
   name: string;
-  email: string;
-  password?: string; // Password might not always be returned
-  phone: number | null;
-  start_user: Date | null;
-  end_user: Date | null;
-  first_login: boolean;
+  description: string;
+  serial_number: string;
+  product_number: string;
+  brand: string;
+  ip: string;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
@@ -38,20 +37,19 @@ interface UsersInterfaces {
   x20?: string;
 }
 
-interface UsersCreateInterfaces {
+interface DeviceCreateInterfaces {
   company_id: string;
-  role_id: string;
   contract_id: string;
+  service_id: string;
   location_id: string;
-  site_id: string; // Corrected from sites_id
+  site_id: string;
   code: string;
   name: string;
-  email: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description: string;
+  serial_number: string;
+  product_number: string;
+  brand: string;
+  ip: string;
   x1?: string;
   x2?: string;
   x3?: string;
@@ -74,21 +72,20 @@ interface UsersCreateInterfaces {
   x20?: string;
 }
 
-interface UsersUpdateInterfaces {
+interface DeviceUpdateInterfaces {
   id: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
+  service_id?: string;
   location_id?: string;
-  site_id?: string; // Corrected from sites_id
+  site_id?: string;
   code?: string;
   name?: string;
-  email?: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
+  serial_number?: string;
+  product_number?: string;
+  brand?: string;
+  ip?: string;
   x1?: string;
   x2?: string;
   x3?: string;
@@ -111,24 +108,24 @@ interface UsersUpdateInterfaces {
   x20?: string;
 }
 
-interface UsersDeleteInterfaces {
+interface DeviceDeleteInterfaces {
   id: string;
 }
 
-interface UsersFilterInterfaces {
+interface DeviceFilterInterfaces {
   id?: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
+  service_id?: string;
   location_id?: string;
-  site_id?: string; // Corrected from sites_id
+  site_id?: string;
   code?: string;
   name?: string;
-  email?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
+  serial_number?: string;
+  product_number?: string;
+  brand?: string;
+  ip?: string;
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date | null;
@@ -154,17 +151,15 @@ interface UsersFilterInterfaces {
   x20?: string;
 }
 
-interface UsersUploadDeleteInterfaces {
+interface DeviceUploadDeleteInterfaces {
   links: string[];
 }
 
 export {
-  UsersInterfaces,
-  UsersFilterInterfaces,
-  UsersUpdateInterfaces,
-  UsersCreateInterfaces,
-  UsersDeleteInterfaces,
-  UsersUploadDeleteInterfaces,
+  DeviceInterfaces,
+  DeviceFilterInterfaces,
+  DeviceUpdateInterfaces,
+  DeviceCreateInterfaces,
+  DeviceDeleteInterfaces,
+  DeviceUploadDeleteInterfaces,
 };
-
-// export { UserssInterfaces, UserssFilterInterfaces }; 

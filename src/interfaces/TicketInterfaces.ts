@@ -1,18 +1,19 @@
-interface UsersInterfaces {
+interface TicketInterfaces {
   id: string;
+  user_id: string;
   company_id: string;
-  role_id: string;
   contract_id: string;
-  location_id: string;
-  site_id: string; // Corrected from sites_id
+  site_id: string;
+  attendance_id: string;
+  evidence_group_id: string;
+  severity_id: string;
+  device_id: string;
+  status_id: string;
   code: string;
   name: string;
-  email: string;
-  password?: string; // Password might not always be returned
-  phone: number | null;
-  start_user: Date | null;
-  end_user: Date | null;
-  first_login: boolean;
+  description: string;
+  start_ticket: Date | null;
+  end_ticket: Date | null;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
@@ -38,20 +39,21 @@ interface UsersInterfaces {
   x20?: string;
 }
 
-interface UsersCreateInterfaces {
+interface TicketCreateInterfaces {
+  user_id: string;
   company_id: string;
-  role_id: string;
   contract_id: string;
-  location_id: string;
-  site_id: string; // Corrected from sites_id
+  site_id: string;
+  attendance_id: string;
+  evidence_group_id: string;
+  severity_id: string;
+  device_id: string;
+  status_id: string;
   code: string;
   name: string;
-  email: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description: string;
+  start_ticket?: Date;
+  end_ticket?: Date;
   x1?: string;
   x2?: string;
   x3?: string;
@@ -74,21 +76,22 @@ interface UsersCreateInterfaces {
   x20?: string;
 }
 
-interface UsersUpdateInterfaces {
+interface TicketUpdateInterfaces {
   id: string;
+  user_id?: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
-  location_id?: string;
-  site_id?: string; // Corrected from sites_id
+  site_id?: string;
+  attendance_id?: string;
+  evidence_group_id?: string;
+  severity_id?: string;
+  device_id?: string;
+  status_id?: string;
   code?: string;
   name?: string;
-  email?: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
+  start_ticket?: Date;
+  end_ticket?: Date;
   x1?: string;
   x2?: string;
   x3?: string;
@@ -111,24 +114,26 @@ interface UsersUpdateInterfaces {
   x20?: string;
 }
 
-interface UsersDeleteInterfaces {
+interface TicketDeleteInterfaces {
   id: string;
 }
 
-interface UsersFilterInterfaces {
+interface TicketFilterInterfaces {
   id?: string;
+  user_id?: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
-  location_id?: string;
-  site_id?: string; // Corrected from sites_id
+  site_id?: string;
+  attendance_id?: string;
+  evidence_group_id?: string;
+  severity_id?: string;
+  device_id?: string;
+  status_id?: string;
   code?: string;
   name?: string;
-  email?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
+  start_ticket?: Date;
+  end_ticket?: Date;
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date | null;
@@ -154,17 +159,15 @@ interface UsersFilterInterfaces {
   x20?: string;
 }
 
-interface UsersUploadDeleteInterfaces {
+interface TicketUploadDeleteInterfaces {
   links: string[];
 }
 
 export {
-  UsersInterfaces,
-  UsersFilterInterfaces,
-  UsersUpdateInterfaces,
-  UsersCreateInterfaces,
-  UsersDeleteInterfaces,
-  UsersUploadDeleteInterfaces,
+  TicketInterfaces,
+  TicketUpdateInterfaces,
+  TicketCreateInterfaces,
+  TicketDeleteInterfaces,
+  TicketUploadDeleteInterfaces,
+  TicketFilterInterfaces,
 };
-
-// export { UserssInterfaces, UserssFilterInterfaces }; 

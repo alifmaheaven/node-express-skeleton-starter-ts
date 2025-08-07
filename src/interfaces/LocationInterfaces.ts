@@ -1,18 +1,10 @@
-interface UsersInterfaces {
+interface LocationInterfaces {
   id: string;
   company_id: string;
-  role_id: string;
   contract_id: string;
-  location_id: string;
-  site_id: string; // Corrected from sites_id
   code: string;
   name: string;
-  email: string;
-  password?: string; // Password might not always be returned
-  phone: number | null;
-  start_user: Date | null;
-  end_user: Date | null;
-  first_login: boolean;
+  description: string;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
@@ -38,20 +30,12 @@ interface UsersInterfaces {
   x20?: string;
 }
 
-interface UsersCreateInterfaces {
+interface LocationCreateInterfaces {
   company_id: string;
-  role_id: string;
   contract_id: string;
-  location_id: string;
-  site_id: string; // Corrected from sites_id
   code: string;
   name: string;
-  email: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description: string;
   x1?: string;
   x2?: string;
   x3?: string;
@@ -74,21 +58,13 @@ interface UsersCreateInterfaces {
   x20?: string;
 }
 
-interface UsersUpdateInterfaces {
+interface LocationUpdateInterfaces {
   id: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
-  location_id?: string;
-  site_id?: string; // Corrected from sites_id
   code?: string;
   name?: string;
-  email?: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
   x1?: string;
   x2?: string;
   x3?: string;
@@ -111,24 +87,17 @@ interface UsersUpdateInterfaces {
   x20?: string;
 }
 
-interface UsersDeleteInterfaces {
+interface LocationDeleteInterfaces {
   id: string;
 }
 
-interface UsersFilterInterfaces {
+interface LocationFilterInterfaces {
   id?: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
-  location_id?: string;
-  site_id?: string; // Corrected from sites_id
   code?: string;
   name?: string;
-  email?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date | null;
@@ -154,17 +123,15 @@ interface UsersFilterInterfaces {
   x20?: string;
 }
 
-interface UsersUploadDeleteInterfaces {
+interface LocationUploadDeleteInterfaces {
   links: string[];
 }
 
 export {
-  UsersInterfaces,
-  UsersFilterInterfaces,
-  UsersUpdateInterfaces,
-  UsersCreateInterfaces,
-  UsersDeleteInterfaces,
-  UsersUploadDeleteInterfaces,
+  LocationInterfaces,
+  LocationFilterInterfaces,
+  LocationUpdateInterfaces,
+  LocationCreateInterfaces,
+  LocationDeleteInterfaces,
+  LocationUploadDeleteInterfaces,
 };
-
-// export { UserssInterfaces, UserssFilterInterfaces }; 

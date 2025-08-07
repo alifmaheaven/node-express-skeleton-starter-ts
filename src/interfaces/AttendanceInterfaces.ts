@@ -1,18 +1,17 @@
-interface UsersInterfaces {
+interface AttendanceInterfaces {
   id: string;
   company_id: string;
-  role_id: string;
   contract_id: string;
-  location_id: string;
-  site_id: string; // Corrected from sites_id
+  user_id: string;
+  site_id: string;
+  evidence_group_id: string;
   code: string;
   name: string;
-  email: string;
-  password?: string; // Password might not always be returned
-  phone: number | null;
-  start_user: Date | null;
-  end_user: Date | null;
-  first_login: boolean;
+  description: string;
+  longitude: number | null;
+  latitude: number | null; // Corrected from langitude
+  check_in: Date | null; // Corrected to camelCase
+  check_out: Date | null; // Corrected to camelCase
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
@@ -38,20 +37,19 @@ interface UsersInterfaces {
   x20?: string;
 }
 
-interface UsersCreateInterfaces {
+interface AttendanceCreateInterfaces {
   company_id: string;
-  role_id: string;
   contract_id: string;
-  location_id: string;
-  site_id: string; // Corrected from sites_id
+  user_id: string;
+  site_id: string;
+  evidence_group_id: string;
   code: string;
   name: string;
-  email: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description: string;
+  longitude?: number;
+  latitude?: number; // Corrected from langitude
+  check_in?: Date; // Corrected to camelCase
+  check_out?: Date; // Corrected to camelCase
   x1?: string;
   x2?: string;
   x3?: string;
@@ -74,21 +72,20 @@ interface UsersCreateInterfaces {
   x20?: string;
 }
 
-interface UsersUpdateInterfaces {
+interface AttendanceUpdateInterfaces {
   id: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
-  location_id?: string;
-  site_id?: string; // Corrected from sites_id
+  user_id?: string;
+  site_id?: string;
+  evidence_group_id?: string;
   code?: string;
   name?: string;
-  email?: string;
-  password?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
+  longitude?: number;
+  latitude?: number; // Corrected from langitude
+  check_in?: Date; // Corrected to camelCase
+  check_out?: Date; // Corrected to camelCase
   x1?: string;
   x2?: string;
   x3?: string;
@@ -111,24 +108,24 @@ interface UsersUpdateInterfaces {
   x20?: string;
 }
 
-interface UsersDeleteInterfaces {
+interface AttendanceDeleteInterfaces {
   id: string;
 }
 
-interface UsersFilterInterfaces {
+interface AttendanceFilterInterfaces {
   id?: string;
   company_id?: string;
-  role_id?: string;
   contract_id?: string;
-  location_id?: string;
-  site_id?: string; // Corrected from sites_id
+  user_id?: string;
+  site_id?: string;
+  evidence_group_id?: string;
   code?: string;
   name?: string;
-  email?: string;
-  phone?: number;
-  start_user?: Date;
-  end_user?: Date;
-  first_login?: boolean;
+  description?: string;
+  longitude?: number;
+  latitude?: number; // Corrected from langitude
+  check_in?: Date; // Corrected to camelCase
+  check_out?: Date; // Corrected to camelCase
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date | null;
@@ -154,17 +151,15 @@ interface UsersFilterInterfaces {
   x20?: string;
 }
 
-interface UsersUploadDeleteInterfaces {
+interface AttendanceUploadDeleteInterfaces {
   links: string[];
 }
 
 export {
-  UsersInterfaces,
-  UsersFilterInterfaces,
-  UsersUpdateInterfaces,
-  UsersCreateInterfaces,
-  UsersDeleteInterfaces,
-  UsersUploadDeleteInterfaces,
+  AttendanceInterfaces,
+  AttendanceUpdateInterfaces,
+  AttendanceCreateInterfaces,
+  AttendanceDeleteInterfaces,
+  AttendanceUploadDeleteInterfaces,
+  AttendanceFilterInterfaces,
 };
-
-// export { UserssInterfaces, UserssFilterInterfaces }; 
