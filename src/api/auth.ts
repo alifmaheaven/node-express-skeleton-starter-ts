@@ -31,6 +31,16 @@ router.post('/register', async (req: Request, res:Response) => {
   }
 });
 
+router.put('/update-profile', async (req: Request, res:Response) => {
+  try {
+    
+    const result = await new Autentications().updateProfile(req, req.body);
+    response.ok('Update success', result, res);
+  } catch (error) {
+    response.bad('Update error', error, res);
+  }
+});
+
 router.get('/profile', JWTAuthentication, async (req: Request, res:Response) => {
   try {
     const result = await new Autentications().profile(req);
