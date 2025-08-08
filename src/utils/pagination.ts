@@ -22,13 +22,14 @@ const pagination = async (
     get_only_data_inside_head_of_table,
   ).reduce((acc: { [key: string]: string[] }, [key, value]) => {
     acc[key] = Array.isArray(value) ? value : [value!];
+    acc[key] = [...new Set(acc[key])];
     return acc;
   }, {});
-
+  
   // custom setup
   const keys_of_get_only_data_inside_head_of_table = Object.keys(
     get_only_data_inside_head_of_table,
-  );
+  );  
 
   let conditions: string[] = [];
   let values: any[] = [];
